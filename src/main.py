@@ -3,12 +3,16 @@ import openai
 from decouple import config
 import os
 from google.cloud import vision
+import json
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'vision_key.json'
+# todo: google auth to read creds from string
+
+#os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'vision_key.json'
 openai.api_key = config("OPENAI_API_KEY")
 
 def detect_text(content):
     image = vision.Image(content=content)
+    #google.auth.credentials.Credentials = json.loads(str)
     vision_client = vision.ImageAnnotatorClient()
     response = vision_client.text_detection(image=image)
     text = response.text_annotations[0].description
