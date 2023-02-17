@@ -48,7 +48,7 @@ fixMatplotlib = true
 # Example: ['/home/user1/env', 'relative/path/to/folder']
 # Default: []
 folderWatchBlacklist = ['']
-
+fileWatcherType = "none"
 
 
 # If false, will attempt to open a browser window on start.
