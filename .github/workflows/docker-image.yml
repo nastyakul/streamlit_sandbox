@@ -1,0 +1,45 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DigitalOcean registry
+      uses: digitalocean/digitalocean-container-registry-login@v1
+      with:
+        registry: registry.digitalocean.com
+        username: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+        password: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true 
+        tags: registry.digitalocean.com/pet-projects-nastyakul/streamlit_tutorial:latest
+        secrets: |
+          DOCKER_USERNAME=nastyakul
+          DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Deploy to DigitalOcean Kubernetes
+      uses: digitalocean/action-doctl@v2
+      with:
+        command: kubernetes cluster kubeconfig save my-test-cluster
+        token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+
+    - name: Apply Kubernetes deployment
+      uses: appleboy/kubectl-action@master
+      with:
+        args: apply -f deploy.yaml -n prod
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
