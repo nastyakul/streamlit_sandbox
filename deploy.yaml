@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: retro-summarizer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: retro-summarizer
+  template:
+    metadata:
+      labels:
+        app: retro-summarizer
+    spec:
+      containers:
+        - name: my-app
+          image: registry.digitalocean.com/pet-projects-nastyakul/streamlit_tutorial:latest
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: openai
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: gcloud
+          ports:
+            - containerPort: 8051
+          imagePullPolicy: Always
+      volumes:
+        - name: summarizer-secrets-volume
+          secret:
+            secretName: summarizer-secrets
