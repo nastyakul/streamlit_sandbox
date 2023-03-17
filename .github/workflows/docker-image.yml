@@ -40,6 +40,6 @@ jobs:
     - name: Apply Kubernetes deployment
       uses: actions-hub/kubectl@master
       with:
-        args: apply -f $GITHUB\_WORKSPACE/config/deploy.yaml -n prod
+        args: apply -f $GITHUB\_WORKSPACE/config/deploy.yaml
       env:
         KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
