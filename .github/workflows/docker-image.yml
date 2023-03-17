@@ -40,6 +40,6 @@ jobs:
     - name: Apply Kubernetes deployment
       uses: docker://lachlanevenson/k8s-kubectl
       with:
-        args: kubectl --kubeconfig=$HOME/.kubeconfig apply -f $GITHUB\_WORKSPACE/config/deploy.yaml -n prod
+        args: apply -f $GITHUB\_WORKSPACE/config/deploy.yaml -n prod
       env:
         KUBECONFIG: ${{ secrets.KUBECONFIG }}
