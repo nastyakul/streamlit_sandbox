@@ -38,8 +38,8 @@ jobs:
         token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
 
     - name: Apply Kubernetes deployment
-      uses: docker://lachlanevenson/k8s-kubectl
+      uses: actions-hub/kubectl@master
       with:
         args: apply -f $GITHUB\_WORKSPACE/config/deploy.yaml -n prod
       env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
