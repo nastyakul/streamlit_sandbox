@@ -38,6 +38,7 @@ jobs:
         token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
 
     - name: Apply Kubernetes deployment
+      uses: actions-hub/kubectl@master
       env:
         KUBECONFIG: ${{ secrets.KUBECONFIG }}
       with:
