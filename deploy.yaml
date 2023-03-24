@@ -42,7 +42,7 @@ metadata:
   name: retro-summarizer
   namespace: prod
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: retro-summarizer
   ports:
