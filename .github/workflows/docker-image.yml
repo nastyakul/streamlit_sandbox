@@ -42,4 +42,5 @@ jobs:
       env:
         KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
       with:
+        namespace: prod
         args: apply -f deploy.yaml
