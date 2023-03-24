@@ -34,3 +34,17 @@ spec:
         - name: summarizer-secrets-volume
           secret:
             secretName: summarizer-secrets
+
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: retro-summarizer
+spec:
+  type: ClusterIP
+  selector:
+    app: retro-summarizer
+  ports:
+    - name: http
+      port: 8501
+      targetPort: 8501
