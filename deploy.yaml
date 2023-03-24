@@ -28,7 +28,7 @@ spec:
                   name: summarizer-secrets
                   key: gcloud
           ports:
-            - containerPort: 8051
+            - containerPort: 8501
           imagePullPolicy: Always
       volumes:
         - name: summarizer-secrets-volume
